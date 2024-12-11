@@ -1,17 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://c65wacv0ipaf0"]
+[gd_scene load_steps=8 format=3 uid="uid://c65wacv0ipaf0"]
 
-[ext_resource type="PackedScene" uid="uid://dcnpgab3gqrvr" path="res://player.tscn" id="1_15vkp"]
+[ext_resource type="PackedScene" uid="uid://bgvgyrj8ekxbk" path="res://player.scn" id="1_leuir"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6k8ry"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_pa8jf"]
+sky_material = SubResource("ProceduralSkyMaterial_6k8ry")
+
+[sub_resource type="Environment" id="Environment_k1mqx"]
+background_mode = 2
+sky = SubResource("Sky_pa8jf")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kyyei"]
 size = Vector3(60, 2, 60)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gjf3g"]
+albedo_color = Color(0, 0.313726, 0, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_jywpt"]
+material = SubResource("StandardMaterial3D_gjf3g")
 size = Vector3(60, 2, 60)
 
 [node name="Main" type="Node"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k1mqx")
+
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 8
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_kyyei")
@@ -20,15 +42,6 @@ shape = SubResource("BoxShape3D_kyyei")
 mesh = SubResource("BoxMesh_jywpt")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 15, 27, 22)
-shadow_enabled = true
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 15, 35, 34)
 
-[node name="Player" parent="." instance=ExtResource("1_15vkp")]
-
-[node name="CameraPivot" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
-projection = 1
-size = 19.0
+[node name="Player" parent="." instance=ExtResource("1_leuir")]
