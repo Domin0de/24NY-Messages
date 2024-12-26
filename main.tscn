@@ -15,6 +15,7 @@ background_mode = 2
 sky = SubResource("Sky_pa8jf")
 tonemap_mode = 2
 glow_enabled = true
+glow_intensity = 3.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kyyei"]
 size = Vector3(60, 2, 60)
