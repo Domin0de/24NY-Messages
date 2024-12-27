@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c65wacv0ipaf0"]
+[gd_scene load_steps=19 format=3 uid="uid://c65wacv0ipaf0"]
 
 [ext_resource type="PackedScene" uid="uid://bgvgyrj8ekxbk" path="res://player.scn" id="1_leuir"]
 [ext_resource type="PackedScene" uid="uid://c4057di4lmif1" path="res://star.scn" id="2_u1sy1"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://dn1s52v64ixeq" path="res://Pacifico-Regular.ttf" id="5_g4ej4"]
 [ext_resource type="Script" path="res://dialogue.gd" id="6_e6xus"]
 [ext_resource type="Texture2D" uid="uid://bx3padk77wolg" path="res://dialogue_arrow.png" id="6_m2otn"]
+[ext_resource type="PackedScene" uid="uid://c0x5h08evjn82" path="res://terrain.scn" id="9_7jjc1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6k8ry"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -22,16 +23,6 @@ sky = SubResource("Sky_pa8jf")
 tonemap_mode = 2
 glow_enabled = true
 glow_intensity = 3.0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_kyyei"]
-size = Vector3(60, 2, 60)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gjf3g"]
-albedo_color = Color(0, 0.313726, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_jywpt"]
-material = SubResource("StandardMaterial3D_gjf3g")
-size = Vector3(60, 2, 60)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fl3ew"]
 texture = ExtResource("4_60klk")
@@ -66,27 +57,20 @@ texture = ExtResource("6_m2otn")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k1mqx")
 
-[node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_kyyei")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("BoxMesh_jywpt")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 15, 35, 34)
 
 [node name="Cinnamoroll" parent="." instance=ExtResource("3_vqc46")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.7362)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.8179, -2.19943, 52.7362)
+
+[node name="Dialogue_Area" parent="." instance=ExtResource("4_ly14n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.8179, -2.19943, 53)
 
 [node name="Player" parent="." instance=ExtResource("1_leuir")]
+transform = Transform3D(-0.623566, 0, 0.781771, 0, 1, 0, -0.781771, 0, -0.623566, 72, 0, -22)
 
 [node name="Star" parent="." instance=ExtResource("2_u1sy1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 14, -12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 30, -45)
 collision_mask = 41
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -153,7 +137,6 @@ bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sodales justo ac elit semper vehicula. Ut id placerat tellus. Vestibulum cursus rhoncus nunc sit amet lobortis. Aenean hendrerit vestibulum volutpat. Donec sodales, est eget pulvinar egestas, ex velit cursus tortor, eu vehicula sem est sed est. Curabitur non scelerisque "
 fit_content = true
 
-[node name="Dialogue_Area" parent="." instance=ExtResource("4_ly14n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
+[node name="Terrain" parent="." instance=ExtResource("9_7jjc1")]
 
 [connection signal="pressed" from="UI/Dialogue/Box/Continue" to="UI/Dialogue" method="_on_continue_pressed"]

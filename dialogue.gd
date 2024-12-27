@@ -12,6 +12,8 @@ func _ready() -> void:
 	if json_as_dict and Global.owner_code in json_as_dict:
 		text = json_as_dict[Global.owner_code]
 
+	print("For owner code: ", Global.owner_code, " had text: ", text)
+
 func display_line(opening: bool = false):
 	if opening and textIndex != 0:
 		return

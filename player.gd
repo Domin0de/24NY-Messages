@@ -34,6 +34,9 @@ func _physics_process(delta):
 
 	if not is_on_floor():
 		velocity.y -= (gravity * delta * 1/2)
+		
+	if is_on_floor():
+		velocity.y = 0
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and cam_move:
@@ -65,7 +68,7 @@ func get_move_input(_delta):
 	var direction = Vector3(input.x, 0, input.y).rotated(Vector3.UP, rotation.y)
 
 	velocity = lerp(velocity, direction * speed, 0.5)
-	velocity.y = stored_y
+	velocity.y = stored_y + 0.01
 
 func project_aim(target_casting = true):
 	if hook_cast.is_colliding():
