@@ -35,7 +35,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= (gravity * delta * 1/2)
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseMotion and cam_move:
 		rotation.x -= event.relative.y / sensitivity
 		rotation_degrees.x = clamp(rotation_degrees.x, -90.00, 80)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://c65wacv0ipaf0"]
+[gd_scene load_steps=21 format=3 uid="uid://c65wacv0ipaf0"]
 
 [ext_resource type="PackedScene" uid="uid://bgvgyrj8ekxbk" path="res://player.scn" id="1_leuir"]
 [ext_resource type="PackedScene" uid="uid://c4057di4lmif1" path="res://star.scn" id="2_u1sy1"]
 [ext_resource type="PackedScene" uid="uid://2t25vd3r62db" path="res://cinnamoroll.scn" id="3_vqc46"]
 [ext_resource type="Texture2D" uid="uid://bg5kd2sktcd6q" path="res://dialoguebox.png" id="4_60klk"]
+[ext_resource type="PackedScene" uid="uid://cm30v1iy2uxo5" path="res://dialogue_area.scn" id="4_ly14n"]
 [ext_resource type="FontFile" uid="uid://dn1s52v64ixeq" path="res://Pacifico-Regular.ttf" id="5_g4ej4"]
 [ext_resource type="Script" path="res://dialogue.gd" id="6_e6xus"]
 [ext_resource type="Texture2D" uid="uid://bx3padk77wolg" path="res://dialogue_arrow.png" id="6_m2otn"]
@@ -151,5 +152,8 @@ mouse_filter = 2
 bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sodales justo ac elit semper vehicula. Ut id placerat tellus. Vestibulum cursus rhoncus nunc sit amet lobortis. Aenean hendrerit vestibulum volutpat. Donec sodales, est eget pulvinar egestas, ex velit cursus tortor, eu vehicula sem est sed est. Curabitur non scelerisque "
 fit_content = true
+
+[node name="Dialogue_Area" parent="." instance=ExtResource("4_ly14n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
 
 [connection signal="pressed" from="UI/Dialogue/Box/Continue" to="UI/Dialogue" method="_on_continue_pressed"]
