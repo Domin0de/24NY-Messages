@@ -19,6 +19,6 @@ func _physics_process(delta: float) -> void:
 		global_position = lerp(global_position, closer, 0.1)
 
 func _process(delta: float) -> void:
-	if player.owner_code == star_owner and timer.is_stopped():
+	if Global.owner_code == star_owner and timer.is_stopped():
 		timer.start(1)
 		star_material.set_feature(0, !star_material.get_feature(0)) # 0 = FEATURE_EMISSION

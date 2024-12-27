@@ -6,6 +6,7 @@ var target_pos = null
 var positioned := false
 var pos_diff = null
 @export var collision_star : Node3D = null
+@onready var owner_code: String = Global.owner_code
 
 func _physics_process(delta: float) -> void:
 	if not collision_star:
@@ -22,8 +23,11 @@ func _physics_process(delta: float) -> void:
 			global_position = get_collision_point()
 
 			collision_star = get_collider()
-			collision_star.hooked = true
-			
-			pos_diff = self.global_position - collision_star.global_position
+			if collision_star.star_owner == owner_code:
+				collision_star.hooked = true
+
+				pos_diff = self.global_position - collision_star.global_position
+			else:
+				collision_star = null
 	else:
 		global_position = collision_star.global_position + pos_diff

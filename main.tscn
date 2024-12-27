@@ -1,7 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://c65wacv0ipaf0"]
+[gd_scene load_steps=20 format=3 uid="uid://c65wacv0ipaf0"]
 
 [ext_resource type="PackedScene" uid="uid://bgvgyrj8ekxbk" path="res://player.scn" id="1_leuir"]
 [ext_resource type="PackedScene" uid="uid://c4057di4lmif1" path="res://star.scn" id="2_u1sy1"]
+[ext_resource type="PackedScene" uid="uid://2t25vd3r62db" path="res://cinnamoroll.scn" id="3_vqc46"]
+[ext_resource type="Texture2D" uid="uid://bg5kd2sktcd6q" path="res://dialoguebox.png" id="4_60klk"]
+[ext_resource type="FontFile" uid="uid://dn1s52v64ixeq" path="res://Pacifico-Regular.ttf" id="5_g4ej4"]
+[ext_resource type="Script" path="res://dialogue.gd" id="6_e6xus"]
+[ext_resource type="Texture2D" uid="uid://bx3padk77wolg" path="res://dialogue_arrow.png" id="6_m2otn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6k8ry"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,6 +32,34 @@ albedo_color = Color(0, 0.313726, 0, 1)
 material = SubResource("StandardMaterial3D_gjf3g")
 size = Vector3(60, 2, 60)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fl3ew"]
+texture = ExtResource("4_60klk")
+texture_margin_left = 256.0
+texture_margin_top = 256.0
+texture_margin_right = 256.0
+texture_margin_bottom = 256.0
+
+[sub_resource type="Theme" id="Theme_mw5ux"]
+default_font = ExtResource("5_g4ej4")
+default_font_size = 22
+Panel/styles/panel = SubResource("StyleBoxTexture_fl3ew")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pj4kx"]
+texture = ExtResource("6_m2otn")
+modulate_color = Color(0.3084, 0.3084, 0.3084, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sppid"]
+texture = ExtResource("6_m2otn")
+modulate_color = Color(0.513726, 1, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b0pvb"]
+texture = ExtResource("6_m2otn")
+modulate_color = Color(0.564706, 0.960784, 0.635294, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s4kup"]
+texture = ExtResource("6_m2otn")
+
 [node name="Main" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -46,9 +79,77 @@ mesh = SubResource("BoxMesh_jywpt")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 15, 35, 34)
 
+[node name="Cinnamoroll" parent="." instance=ExtResource("3_vqc46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.7362)
+
 [node name="Player" parent="." instance=ExtResource("1_leuir")]
 
 [node name="Star" parent="." instance=ExtResource("2_u1sy1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 14, -12)
-collision_layer = 2
-collision_mask = 13
+collision_mask = 41
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Dialogue" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchor_left = 0.1
+anchor_top = 0.6
+anchor_right = 0.9
+anchor_bottom = 0.95
+offset_left = 0.423996
+offset_top = 0.00799561
+offset_right = -0.184082
+offset_bottom = 0.143982
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_mw5ux")
+script = ExtResource("6_e6xus")
+
+[node name="Box" type="Panel" parent="UI/Dialogue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 920.008
+offset_bottom = 227.064
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="Continue" type="Button" parent="UI/Dialogue/Box"]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.928
+anchor_top = 0.688
+anchor_right = 0.963
+anchor_bottom = 0.829
+offset_left = 10.3038
+offset_top = 10.032
+offset_right = 9.8689
+offset_bottom = 10.018
+grow_horizontal = 0
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pj4kx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_sppid")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_b0pvb")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s4kup")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialogue"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 40.0
+offset_right = 885.0
+offset_bottom = 196.0
+mouse_filter = 2
+
+[node name="Text" type="RichTextLabel" parent="UI/Dialogue/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sodales justo ac elit semper vehicula. Ut id placerat tellus. Vestibulum cursus rhoncus nunc sit amet lobortis. Aenean hendrerit vestibulum volutpat. Donec sodales, est eget pulvinar egestas, ex velit cursus tortor, eu vehicula sem est sed est. Curabitur non scelerisque "
+fit_content = true
+
+[connection signal="pressed" from="UI/Dialogue/Box/Continue" to="UI/Dialogue" method="_on_continue_pressed"]
