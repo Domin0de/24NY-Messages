@@ -24,7 +24,7 @@ func _ready():
 	target_instance = hook_target.instantiate()
 	target_instance.transform.origin.y = -1000
 
-	if OS.get_name()=="HTML5":
+	if OS.get_name()=="Web":
 		Global.owner_code = JavaScriptBridge.eval("id")
 		print("Got owner code ", Global.owner_code)
 
