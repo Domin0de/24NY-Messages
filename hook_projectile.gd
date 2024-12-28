@@ -27,6 +27,7 @@ func _physics_process(delta: float) -> void:
 				collision_star.hooked = true
 
 				pos_diff = self.global_position - collision_star.global_position
+				Global.dialogue.single_line("This seems to hold some memories, try bring it to Cinnamoroll and interact with him...")
 			else:
 				collision_star = null
 	else:

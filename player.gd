@@ -6,6 +6,7 @@ extends CharacterBody3D
 @export var sensitivity := 500
 
 var cam_move := false
+var aim_triggered := false
 var target_instance: Node3D
 var hook_instance: Node3D
 var rope_instance: Node3D
@@ -13,7 +14,7 @@ var rope_instance: Node3D
 @onready var hook_cast := $Pivot/Hook/Hook_Cast
 @onready var timer: Timer = $Pivot/Hook/Timer
 
-@onready var _dialogue : Control = $"../UI/Dialogue"
+@onready var _crosshair : TextureRect = $"../UI/Crosshair"
 
 const hook_target = preload("res://hook_target.scn")
 const hook_piece = preload("res://hook_piece.scn")
@@ -21,8 +22,11 @@ const hook_projectile = preload("res://hook_projectile.scn")
 
 func _ready():
 	target_instance = hook_target.instantiate()
+	target_instance.transform.origin.y = -1000
 
-	reset_target_instance()
+	if OS.get_name()=="HTML5":
+		Global.owner_code = JavaScriptBridge.eval("id")
+		print("Got owner code ", Global.owner_code)
 
 func _physics_process(delta):
 	get_move_input(delta)
@@ -46,10 +50,14 @@ func _unhandled_input(event):
 		
 	if Input.is_action_pressed("aim"):
 		cam_move = true
+		aim_triggered = true
+		_crosshair.visible = true
 
 		project_aim()
-	else:
+	elif aim_triggered:
+		aim_triggered = false
 		cam_move = false
+		_crosshair.visible = false
 		reset_target_instance()
 		
 	if timer.is_stopped() and Input.is_action_just_pressed("shoot"):

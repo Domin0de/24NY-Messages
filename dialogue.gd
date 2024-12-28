@@ -13,13 +13,18 @@ func _ready() -> void:
 		text = json_as_dict[Global.owner_code]
 
 	print("For owner code: ", Global.owner_code, " had text: ", text)
+	Global.dialogue = self
+	
+func single_line(line: String):
+	_dialogue.text = line
+	open()
+	_continue.grab_focus()
 
 func display_line(opening: bool = false):
 	if opening and textIndex != 0:
 		return
 
 	if textIndex < len(text):
-		print(textIndex)
 		_dialogue.text = text[textIndex]
 
 		open()
@@ -37,4 +42,8 @@ func close():
 	visible = false
 
 func _on_continue_pressed() -> void:
-	display_line()
+	print(textIndex)
+	if textIndex != 0:
+		display_line()
+	else:
+		close()

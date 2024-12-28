@@ -15,14 +15,13 @@ void vertex() {
 void fragment() {
 	vec3 grass_albedo = texture(grass_texture, UV*4.f).xyz;
 	vec3 hill_albedo = texture(hill_texture, UV*4.f).xyz;
-	
+
 	float hill_grass_weight = normal_y;
-	
+
 	hill_grass_weight = max(min_hill_slope, hill_grass_weight);
 	hill_grass_weight = min(max_grass_slope, hill_grass_weight);
 	hill_grass_weight -= min_hill_slope;
 	hill_grass_weight /= max_grass_slope - min_hill_slope;
-	
+
 	ALBEDO = mix(hill_albedo, grass_albedo, hill_grass_weight);
 }
-

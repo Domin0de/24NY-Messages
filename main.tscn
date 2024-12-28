@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c65wacv0ipaf0"]
+[gd_scene load_steps=23 format=3 uid="uid://c65wacv0ipaf0"]
 
 [ext_resource type="PackedScene" uid="uid://bgvgyrj8ekxbk" path="res://player.scn" id="1_leuir"]
 [ext_resource type="PackedScene" uid="uid://c4057di4lmif1" path="res://star.scn" id="2_u1sy1"]
@@ -6,9 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://bg5kd2sktcd6q" path="res://dialoguebox.png" id="4_60klk"]
 [ext_resource type="PackedScene" uid="uid://cm30v1iy2uxo5" path="res://dialogue_area.scn" id="4_ly14n"]
 [ext_resource type="FontFile" uid="uid://dn1s52v64ixeq" path="res://Pacifico-Regular.ttf" id="5_g4ej4"]
-[ext_resource type="Script" path="res://dialogue.gd" id="6_e6xus"]
+[ext_resource type="Script" uid="uid://by8777t0itghb" path="res://dialogue.gd" id="6_e6xus"]
 [ext_resource type="Texture2D" uid="uid://bx3padk77wolg" path="res://dialogue_arrow.png" id="6_m2otn"]
 [ext_resource type="PackedScene" uid="uid://c0x5h08evjn82" path="res://terrain.scn" id="9_7jjc1"]
+[ext_resource type="Script" uid="uid://6h4cupxg76hk" path="res://menu.gd" id="9_dg77c"]
+[ext_resource type="Texture2D" uid="uid://dekoch2cdlb6j" path="res://menu_filled.png" id="10_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://c3pa7msutc1b" path="res://cross.png" id="11_w48qg"]
+[ext_resource type="Texture2D" uid="uid://ckhx8dms7rb67" path="res://crosshair.png" id="12_ycdy4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6k8ry"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -77,6 +81,7 @@ collision_mask = 41
 
 [node name="Dialogue" type="Control" parent="UI"]
 visible = false
+z_index = 1
 layout_mode = 3
 anchor_left = 0.1
 anchor_top = 0.6
@@ -137,6 +142,72 @@ bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sodales justo ac elit semper vehicula. Ut id placerat tellus. Vestibulum cursus rhoncus nunc sit amet lobortis. Aenean hendrerit vestibulum volutpat. Donec sodales, est eget pulvinar egestas, ex velit cursus tortor, eu vehicula sem est sed est. Curabitur non scelerisque "
 fit_content = true
 
+[node name="Menu" type="Control" parent="UI"]
+visible = false
+z_index = 2
+layout_mode = 3
+anchor_left = 0.28
+anchor_top = 0.05
+anchor_right = 0.72
+anchor_bottom = 0.95
+offset_left = -0.320038
+offset_top = -0.0480003
+offset_right = -0.152039
+offset_bottom = 0.231995
+script = ExtResource("9_dg77c")
+
+[node name="Texture" type="TextureRect" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_ycdy4")
+expand_mode = 3
+
+[node name="Close" type="Button" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.932
+anchor_top = 0.039
+anchor_right = 0.981
+anchor_bottom = 0.081
+offset_left = 0.191193
+offset_top = -0.107721
+offset_right = 223.346
+offset_bottom = 223.386
+scale = Vector2(0.1, 0.1)
+icon = ExtResource("11_w48qg")
+
+[node name="Explain" type="Label" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.32
+anchor_top = 0.85
+anchor_right = 0.68
+anchor_bottom = 0.9
+offset_left = 0.295959
+offset_top = 0.00799561
+offset_right = 0.159973
+offset_bottom = 0.112
+text = "Confused? Press M to view the starting menu"
+horizontal_alignment = 1
+
+[node name="Crosshair" type="TextureRect" parent="UI"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.488
+anchor_top = 0.36
+anchor_right = 0.523
+anchor_bottom = 0.421
+offset_left = -12.176
+offset_top = -6.28001
+offset_right = 11.504
+offset_bottom = 18.192
+texture = ExtResource("12_ycdy4")
+expand_mode = 2
+
 [node name="Terrain" parent="." instance=ExtResource("9_7jjc1")]
 
 [connection signal="pressed" from="UI/Dialogue/Box/Continue" to="UI/Dialogue" method="_on_continue_pressed"]
+[connection signal="pressed" from="UI/Menu/Close" to="UI/Menu" method="_on_close_pressed"]

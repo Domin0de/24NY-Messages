@@ -2,7 +2,6 @@ extends Area3D
 
 var area_active := false
 
-@onready var dialogue_player := get_node("../UI/Dialogue")
 @onready var pos = global_position
 @onready var timer: Timer = $Timer
 
@@ -14,7 +13,7 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if timer.is_stopped() and area_active and event.is_action_released("ui_accept"):
-		dialogue_player.display_line(true)
+		Global.dialogue.display_line(true)
 
 
 func _on_body_entered(body: Node3D) -> void:
